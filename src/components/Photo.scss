@@ -1,0 +1,24 @@
+.image__container {
+    background-color: #eee;
+    cursor: pointer;
+    margin: 2px;
+    overflow: hidden;
+    position: relative;
+
+    .image{
+        transition: transform .135s cubic-bezier(0.0,0.0,0.2,1), opacity linear .15s;
+    }
+
+    .selection-placeholder{
+        left: 4px;
+        top: 4px;
+        width: 18px;
+        height: 18px;
+        border: solid 2px white;
+        background-color: transparent;
+        opacity: 0.5;
+        border-radius: 50%;
+        position: absolute; 
+        z-index: 1;
+    }
+}

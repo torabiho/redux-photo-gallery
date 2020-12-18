@@ -1,0 +1,18 @@
+.main-wrapper {
+    padding: 48px 48px 96px 48px;
+}
+
+.toggle-select {
+    border: solid 2px #eeeeee96;
+    background-color: #3680f0;
+    padding: 8px;
+    cursor: pointer;
+    text-align: center;
+    margin: 16px 0;
+    width: 100px;
+    color: white;
+
+    &:hover {
+        background-color: #2b6ac7;
+    }
+}

@@ -1,0 +1,96 @@
+.footer {
+    position: fixed;
+    flex-direction: row-reverse;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #9dcff0;
+    color: #3e4244;
+    font-weight: bold;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    z-index: 9999;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-top: solid 2px #3680f0;
+
+    .footer__left {
+        display: flex;
+        align-items: center;
+
+        .cancel-icon {
+            color: #3e4244;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+    }
+
+    .footer__right{
+        display: flex;
+
+        .footer__share-icon{
+            margin-right: 16px;
+            cursor: pointer;
+        }
+    }
+}
+
+
+.popup {
+  visibility: visible;
+  width: 300px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  font-weight: 400;
+  border-radius: 6px;
+  border: solid 1px rgb(211, 211, 211);
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 90%;
+  right: 6px;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        right: 72px;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: white transparent transparent transparent;
+    }
+
+    .popup__action-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        .popup__action--close{
+            cursor: pointer;
+            color: #3680f0;
+
+            &:hover {
+                color: #2b6ac7;
+            }
+        }
+
+        .popup__action--send{
+            border: solid 2px #eeeeee96;
+            background-color: #3680f0;
+            padding: 8px 4px;
+            cursor: pointer;
+            text-align: center;
+            margin: 16px 0;
+            width: 150px;
+            color: white;
+
+            &:hover {
+                background-color: #2b6ac7;
+            }
+        }
+    }
+}
