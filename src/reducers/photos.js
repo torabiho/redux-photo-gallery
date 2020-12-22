@@ -1,8 +1,9 @@
 import * as actionTypes from '../constants/actions';
+import { loadingStates } from "../constants/states";
 
 const initialState = {
   items: [],
-  loading: false,
+  loadingStatus: loadingStates.LOADING,
   error: null
 };
 
@@ -28,28 +29,27 @@ export const getPhotosMetaData = items => {
       ...others
     };
   })
-}
+} 
 
 export default function photos(state = initialState, action) {
   switch(action.type) {
     case actionTypes.FETCH_PHOTOS_BEGIN:
       return {
         ...state,
-        loading: true,
-        error: null
+        loadingStatus: loadingStates.LOADING
       };
 
     case actionTypes.FETCH_PHOTOS_SUCCESS:
       return {
         ...state,
-        loading: false,
+        loadingStatus: loadingStates.LOADED,
         items: action.payload.photos
       };
 
     case actionTypes.FETCH_PHOTOS_FAILURE:
       return {
         ...state,
-        loading: false,
+        loadingStatus: loadingStates.ERROR,
         error: action.payload.error,
         items: []
       };
