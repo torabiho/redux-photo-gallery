@@ -10,7 +10,7 @@ const iconPathMap = {
 }
 
 export const Icon = ({ name, className, onClick, viewBox, width, height}) => 
-    <svg className={className} onClick={onClick} viewBox={viewBox} width={width} height={height}>
+    <svg className={className} onClick={onClick} viewBox={viewBox} width={width} height={height} fill="white">
         <path d={iconPathMap[name]}></path>
     </svg>
 

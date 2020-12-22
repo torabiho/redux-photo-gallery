@@ -4,8 +4,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: #9dcff0;
-    color: #3e4244;
+    background: #04558b;
+    color: white;
     font-weight: bold;
     height: 50px;
     display: flex;
@@ -21,7 +21,7 @@
         align-items: center;
 
         .cancel-icon {
-            color: #3e4244;
+            color: white;
             padding: 4px 8px;
             cursor: pointer;
         }
@@ -40,7 +40,8 @@
 
 .popup {
   visibility: visible;
-  width: 300px;
+  min-width: 200px;
+  max-width: 300px;
   background-color: white;
   color: black;
   text-align: center;
@@ -85,7 +86,7 @@
             cursor: pointer;
             text-align: center;
             margin: 16px 0;
-            width: 150px;
+            width: 80px;
             color: white;
 
             &:hover {

@@ -1,0 +1,17 @@
+.header {
+    padding: 18px;
+    background: #04558b;
+    border-radius: 10px;
+    color: white;
+
+    .header__title {
+        margin-top: 0;
+    }
+
+    .header__link,
+    .header__link:visited,
+    .header__link:active {
+        color: rgb(255, 153, 0);
+        font-weight: bold;
+    }
+}

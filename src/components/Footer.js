@@ -23,11 +23,11 @@ const Footer = ({ selectedPhotos, shareSelectedPhotos, selectedUnsharedPhotos, s
         {popupVisibility &&
           <div className="popup">
               {!areUnsharedAndSelectedEqual && <p>{selectedUnsharedPhotos.length} of {selectedPhotos.length} selected photos are not shared.</p>}
-              <p>Send {selectedUnsharedPhotos.length} photos to website?</p>
+              <p>Share {selectedUnsharedPhotos.length} photos?</p>
               <div className="popup__action-buttons">
                   <div className="popup__action--close" onClick={() =>{ toggleVisibility(false)}}>Cancel</div>
                   <div className="popup__action--send" onClick={() => {shareSelectedPhotos(selectedUnsharedPhotos); toggleVisibility(false)}}>
-                  Send to website
+                  Share
                   </div>
               </div>
           </div>
