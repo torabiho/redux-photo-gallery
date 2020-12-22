@@ -10,7 +10,11 @@ export const SharedIcon = ({ sharingStatus }) => {
       <Icon name="share" className="share-icon" />
     }
     {sharingStatus === PENDING_APPROVAL &&
-      <Icon name="pending" className="pending-icon" width="120px" height="120px"/>
+    <div className="pending-icon">
+      <svg class="loader__icon"viewBox="25 25 50 50" >
+        <circle class="loader__path" cx="50" cy="50" r="20" stroke-width="2" />
+      </svg>
+    </div>
     }
     </>
 )};
