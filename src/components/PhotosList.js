@@ -2,10 +2,10 @@ import React, { useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 import Gallery from "react-photo-gallery";
 import { fetchPhotos, toggleSelection, toggleSelectAll } from "../actions/photos";
+import { areAllPhotosSelected, getPhotosMetaData, getSelectedPhotos } from "../selectors";
 import { loadingStates } from "../constants/states";
 import Photo from "./Photo";
 import './App.scss';
-import { areAllPhotosSelected, getPhotosMetaData, getSelectedPhotos } from '../reducers/photos';
 
 const PhotosList = props => {
   const { error, loadingStatus, photos, getPhotos, togglePhotoSelection, switchSelectAll, allSelected, selectedPhotos } = props;
