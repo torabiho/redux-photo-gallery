@@ -1,102 +1,110 @@
 import * as actionTypes from '../constants/actions';
+import { loadingStates } from "../constants/states";
 
 const initialState = {
   items: [],
-  loading: false,
+  loadingStatus: loadingStates.LOADING,
   error: null
 };
 
-export const areAllPhotosSelected = items => {
-  return items.every(item => item.selected);
-}
-
-export const getSelectedPhotos = items => {
-  return items.filter(item => item.selected);
-}
-
-export const getSelectedUnsharedPhotos = items => {
-  return items.filter(item => item.selected && item.website === null);
-}
-
-export const getPhotosMetaData = items => {
-  return items.map((u) => {
-    const { url, ...others } = u;
-    return {
-      src: url,
-      height: +u.url.split('&h=')[1].split('&')[0],
-      width: +u.url.split('&w=')[1].split('&')[0],
-      ...others
-    };
-  })
-}
-
-export default function photos(state = initialState, action) {
-  switch(action.type) {
-    case actionTypes.FETCH_PHOTOS_BEGIN:
-      return {
+const setLoadingState = (state, action) => {
+  return {
         ...state,
-        loading: true,
-        error: null
-      };
+        loadingStatus: loadingStates.LOADING
+      }
+}
 
-    case actionTypes.FETCH_PHOTOS_SUCCESS:
-      return {
+const loadPhotos = (state, action) => {
+  return {
         ...state,
-        loading: false,
+        loadingStatus: loadingStates.LOADED,
         items: action.payload.photos
-      };
+      }
+}
 
-    case actionTypes.FETCH_PHOTOS_FAILURE:
-      return {
+const setErrorState = (state, action) => {
+  return {
         ...state,
-        loading: false,
+        loadingStatus: loadingStates.ERROR,
         error: action.payload.error,
         items: []
-      };
+      }
+}
 
-    case actionTypes.TOGGLE_SELECTION:
-      return {
+const toggleSelection = (state, action) => {
+  return {
         ...state,
         items: state.items.map(item =>
         (item.id === action.id)
           ? {...item, selected: !item.selected}
           : item
-      )};
+      )}
+}
 
-    case actionTypes.TOGGLE_SELECT_ALL:
-      return {
+const toggleSelectionAll = (state, action) => {
+  return {
         ...state,
         items: state.items.map(item => ({...item,selected: action.isSelected}))
       }
+}
 
-    case actionTypes.SHARE_PHOTO_UPDATE:
-      return {
+const setSharePhotoPending = (state, action) => {
+  return {
         ...state,
         items: state.items.map(item =>
         (item.id === action.payload.id)
           ? {...item, website: action.payload.website}
           : item
-      )};
+      )}
+}
 
-    case actionTypes.SHARE_PHOTO_FAILURE:
-      return {
+const setSharePhotoError = (state, action) => {
+  return {
         ...state,
         error: action.payload.error,
         items: state.items.map(item =>
         (item.id === action.payload.id)
           ? {...item, website: action.payload.website}
           : item
-      )};
+      )}
+}
+
+const setSharePhotoDone = (state, action) => {
+  const data = JSON.parse(action.payload.data);
+  return {
+    ...state,
+    items: state.items.map(item =>
+    (item.id === data.photo.id)
+      ? {...item, website: data.event}
+      : item
+  )};
+}
+
+export default function photos(state = initialState, action) {
+  switch(action.type) {
+    case actionTypes.FETCH_PHOTOS_BEGIN:
+      return setLoadingState(state, action)
+
+    case actionTypes.FETCH_PHOTOS_SUCCESS:
+      return loadPhotos(state, action);
+
+    case actionTypes.FETCH_PHOTOS_FAILURE:
+      return setErrorState(state, action);
+
+    case actionTypes.TOGGLE_SELECTION:
+      return toggleSelection(state, action);
+
+    case actionTypes.TOGGLE_SELECT_ALL:
+      return toggleSelectionAll(state, action);
+
+    case actionTypes.SHARE_PHOTO_UPDATE:
+      return setSharePhotoPending(state, action);
+
+    case actionTypes.SHARE_PHOTO_FAILURE:
+      return setSharePhotoError(state, action);
 
     case actionTypes.WEBSOCKET_MESSAGE:
-      const data = JSON.parse(action.payload.data);
-      return {
-        ...state,
-        items: state.items.map(item =>
-        (item.id === data.photo.id)
-          ? {...item, website: data.event}
-          : item
-      )};
+      return setSharePhotoDone(state, action);
 
     default:
       return state;

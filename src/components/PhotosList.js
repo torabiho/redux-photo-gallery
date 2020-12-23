@@ -2,12 +2,13 @@ import React, { useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 import Gallery from "react-photo-gallery";
 import { fetchPhotos, toggleSelection, toggleSelectAll } from "../actions/photos";
+import { areAllPhotosSelected, getPhotosMetaData, getSelectedPhotos } from "../selectors";
+import { loadingStates } from "../constants/states";
 import Photo from "./Photo";
 import './App.scss';
-import { areAllPhotosSelected, getPhotosMetaData, getSelectedPhotos } from '../reducers/photos';
 
 const PhotosList = props => {
-  const { error, loading, photos, getPhotos, togglePhotoSelection, switchSelectAll, allSelected, selectedPhotos } = props;
+  const { loadingStatus, photos, getPhotos, togglePhotoSelection, switchSelectAll, allSelected, selectedPhotos } = props;
   const onInit = function(){ 
 	  getPhotos();
   }
@@ -32,25 +33,23 @@ const PhotosList = props => {
     [togglePhotoSelection, selectedPhotos]
   );
 
-    if (error) {
-      return <div>Error! {error.message}</div>;
-    }
+  if (loadingStatus === loadingStates.LOADING) {
+    return <div className="placeHolder"><h2>Loading...</h2></div>;
+  } else if (loadingStatus === loadingStates.ERROR) {
+    return <div className="placeHolder"><h2>Photos Cannot be loaded please try again later</h2></div>;
+  }
 
-    if (loading) {
-      return <div>Loading...</div>;
-    }
-
-    return (
-      <>
-        <div className="toggle-select" onClick={toggleSelectAllPhotos}>{allSelected ? "Deselect All" : "Select All"}</div>
-        <Gallery photos={getPhotosMetaData(photos)} renderImage={imageRenderer} />
-      </>
-    );
+  return (
+    <>
+      <div className="toggle-select" onClick={toggleSelectAllPhotos}>{allSelected ? "Deselect All" : "Select All"}</div>
+      <Gallery photos={getPhotosMetaData(photos)} renderImage={imageRenderer} />
+    </>
+  );
 }
 
 const mapStateToProps = state => ({
   photos: state.photos.items,
-  loading: state.photos.loading,
+  loadingStatus: state.photos.loadingStatus,
   error: state.photos.error,
   selectedPhotos: getSelectedPhotos(state.photos.items),
   allSelected: areAllPhotosSelected(state.photos.items)

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Footer from '../components/Footer';
 import { shareSelectedPhotos, toggleSelectAll } from "../actions/photos";
-import { getSelectedPhotos, getSelectedUnsharedPhotos } from "../reducers/photos";
+import { getSelectedPhotos, getSelectedUnsharedPhotos } from "../selectors";
 
 
 const mapStateToProps = state => ({

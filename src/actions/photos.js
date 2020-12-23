@@ -1,4 +1,5 @@
 import * as actionTypes from "../constants/actions";
+import { loadingStates } from "../constants/states";
 
 export const fetchPhotosBegin = () => ({
 	type: actionTypes.FETCH_PHOTOS_BEGIN,
@@ -11,7 +12,7 @@ export const fetchPhotosSuccess = (photos) => ({
 
 export const fetchPhotosFailure = (error) => ({
 	type: actionTypes.FETCH_PHOTOS_FAILURE,
-	payload: { error },
+	payload: { error, loadingStatus: loadingStates.ERROR },
 });
 
 export const sharePhotoUpdate = (id, website) => ({
