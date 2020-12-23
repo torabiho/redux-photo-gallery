@@ -8,7 +8,7 @@ import Photo from "./Photo";
 import './App.scss';
 
 const PhotosList = props => {
-  const { error, loadingStatus, photos, getPhotos, togglePhotoSelection, switchSelectAll, allSelected, selectedPhotos } = props;
+  const { loadingStatus, photos, getPhotos, togglePhotoSelection, switchSelectAll, allSelected, selectedPhotos } = props;
   const onInit = function(){ 
 	  getPhotos();
   }
@@ -34,9 +34,9 @@ const PhotosList = props => {
   );
 
   if (loadingStatus === loadingStates.LOADING) {
-    return <div>Loading...</div>;
+    return <div className="placeHolder"><h2>Loading...</h2></div>;
   } else if (loadingStatus === loadingStates.ERROR) {
-    return <div>Error! {error.message}</div>;
+    return <div className="placeHolder"><h2>Photos Cannot be loaded please try again later</h2></div>;
   }
 
   return (
