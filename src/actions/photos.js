@@ -25,6 +25,11 @@ export const sharePhotoFailure = (id, error) => ({
 	payload: { id, website: null, error },
 });
 
+export const shareSelectedPhotosFailure = (error) => ({
+	type: actionTypes.SHARE_SELECTED_PHOTOS_FAILURE,
+	payload: { error },
+});
+
 export const toggleSelection = (id) => ({
 	type: actionTypes.TOGGLE_SELECTION,
 	id,
@@ -35,7 +40,7 @@ export const toggleSelectAll = (isSelected) => ({
 	isSelected,
 });
 
-export const connectWS = (url) => ({
+export const connectWS = (url = `${process.env.REACT_APP_WS_URL}/ws`) => ({
 	type: actionTypes.WEBSOCKET_CONNECT,
 	payload: { url },
 });
@@ -43,7 +48,6 @@ export const connectWS = (url) => ({
 export function fetchPhotos() {
 	return (dispatch) => {
 		dispatch(fetchPhotosBegin());
-		dispatch(connectWS(`${process.env.REACT_APP_WS_URL}/ws`));
 		return fetch(`${process.env.REACT_APP_API_URL}/`)
 			.then(handleErrors)
 			.then((res) => {
@@ -92,12 +96,8 @@ export function shareSelectedPhotos(selectedUnsharedPhotos) {
 						dispatch(sharePhotoFailure(photo.id, error));
 					});
 			})
-		)
-			.then((data) => {
-				console.log("end of promise all", data);
-			})
-			.catch((err) => {
-				console.log("catch promise all", err);
-			});
+		).catch((error) => {
+			dispatch(shareSelectedPhotosFailure(error));
+		});
 	};
 }

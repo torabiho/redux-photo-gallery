@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 import Gallery from "react-photo-gallery";
-import { fetchPhotos, toggleSelection, toggleSelectAll } from "../actions/photos";
+import { connectWS, fetchPhotos, toggleSelection, toggleSelectAll } from "../actions/photos";
 import { areAllPhotosSelected, getPhotosMetaData, getSelectedPhotos } from "../selectors";
 import { loadingStates } from "../constants/states";
 import Photo from "./Photo";
 import './App.scss';
 
 const PhotosList = props => {
-  const { loadingStatus, photos, getPhotos, togglePhotoSelection, switchSelectAll, allSelected, selectedPhotos } = props;
-  const onInit = function(){ 
+  const { connectToWS, loadingStatus, photos, getPhotos, togglePhotoSelection, switchSelectAll, allSelected, selectedPhotos } = props;
+  const onInit = () => { 
+    connectToWS();
 	  getPhotos();
   }
   const toggleSelectAllPhotos = () => {
@@ -57,6 +58,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getPhotos: () => dispatch(fetchPhotos()),
+  connectToWS: url => dispatch(connectWS(url)),
   togglePhotoSelection: id => dispatch(toggleSelection(id)),
   switchSelectAll: isSelected => dispatch(toggleSelectAll(isSelected))
 })
