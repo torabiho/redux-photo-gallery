@@ -11,6 +11,7 @@ const PhotosList = props => {
   const { connectToWS, loadingStatus, photos, getPhotos, togglePhotoSelection, switchSelectAll, allSelected, selectedPhotos } = props;
   const onInit = () => { 
     connectToWS();
+
     getPhotos();
   }
   const toggleSelectAllPhotos = () => {
