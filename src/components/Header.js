@@ -2,6 +2,8 @@ import React from "react";
 import "./Header.scss";
 
 export const Header = () => {
+    console.log("process.env.REACT_APP_WS_URL", process.env.REACT_APP_WS_URL);
+    console.log("process.env.REACT_APP_API_URL", process.env.REACT_APP_API_URL);
     return <header className="header">
         <h1 className="header__title">Redux-Powered Photo Gallery</h1>
         <p>This is a Google Photos style app for showcasing React and Redux implementation and integration. The app is connected to a mock server and allows user to interactively select and share photos. It makes API calls to retrieve and share photos and listens for the response using a WebSocket.</p>
