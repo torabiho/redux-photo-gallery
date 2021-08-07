@@ -2,6 +2,7 @@ import React from "react";
 import "./Header.scss";
 
 export const Header = () => {
+    
     console.log("process.env.REACT_APP_WS_URL", process.env.REACT_APP_WS_URL);
     console.log("process.env.REACT_APP_API_URL", process.env.REACT_APP_API_URL);
     return <header className="header">
