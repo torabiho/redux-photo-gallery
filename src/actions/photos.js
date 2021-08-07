@@ -46,6 +46,7 @@ export const connectWS = (url = `${process.env.REACT_APP_WS_URL}/ws`) => ({
 });
 
 export function fetchPhotos() {
+
 	return (dispatch) => {
 		dispatch(fetchPhotosBegin());
 		return fetch(`${process.env.REACT_APP_API_URL}/`)
