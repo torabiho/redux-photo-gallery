@@ -1,6 +1,6 @@
 {
   "name": "redux-photo-gallery",
-  "homepage": "http://blog.hosseintorabi.com/",
+  "homepage": "https://torabiho.github.io/redux-photo-gallery/",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -23,7 +23,7 @@
     "prettier": "^2.1.2"
   },
   "scripts": {
-    "predeploy": "npm run build && cp CNAME ./build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
